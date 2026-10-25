@@ -87,7 +87,7 @@ class MainActivity : Activity() {
         content.addView(devices, matchWrap())
 
         val caution = TextView(this).apply {
-            text = "ملاحظة: اكتشاف الجهاز ليس اقترانًا. التحكم والكتابة يتطلبان تنفيذ بروتوكول Android TV Remote المدعوم من التلفاز والتحقق من الاقتران. لن نرسل أوامر غير موثقة ولن نخزن كلمات مرور."
+            text = "نصيحة: اجعل الهاتف والتلفاز على شبكة Wi-Fi نفسها، وأوقف شبكة الضيوف أو عزل الأجهزة (AP/client isolation) إن كان مفعّلًا. قد تظهر أجهزة Cast/AirPlay للاكتشاف فقط. التحكم الفعلي يتطلب بروتوكولًا متوافقًا واقترانًا آمنًا."
             textSize = 13f
             setTextColor(muted)
             setPadding(2, 18, 2, 12)
@@ -120,10 +120,15 @@ class MainActivity : Activity() {
             setPadding(0, 22, 0, 8)
         }, matchWrap())
         val grid = arrayOf(
-            arrayOf("⏻", "↑", "⌂"),
+            arrayOf("⏻ تشغيل", "↑", "⌂ الرئيسية"),
             arrayOf("←", "موافق", "→"),
-            arrayOf("رجوع", "↓", "كتم"),
-            arrayOf("الصوت −", "الصوت +", "YouTube")
+            arrayOf("رجوع", "↓", "قائمة"),
+            arrayOf("الصوت −", "كتم الصوت", "الصوت +"),
+            arrayOf("القناة −", "YouTube", "القناة +"),
+            arrayOf("1", "2", "3"),
+            arrayOf("4", "5", "6"),
+            arrayOf("7", "8", "9"),
+            arrayOf("معلومات", "0", "إدخال")
         )
         grid.forEach { row ->
             val line = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
@@ -131,7 +136,9 @@ class MainActivity : Activity() {
                 val b = button(label) {
                     Toast.makeText(this, "زر الواجهة فقط: سيُفعّل بعد تنفيذ بروتوكول الاتصال الآمن.", Toast.LENGTH_SHORT).show()
                 }
-                val params = LinearLayout.LayoutParams(0, dp(54), 1f)
+                b.textSize = if (label.length > 8) 12f else 15f
+                b.minHeight = dp(58)
+                val params = LinearLayout.LayoutParams(0, dp(60), 1f)
                 params.setMargins(dp(3), dp(3), dp(3), dp(3))
                 line.addView(b, params)
             }
@@ -159,7 +166,14 @@ class MainActivity : Activity() {
         devices.text = "جارٍ البحث عن خدمات Android TV على الشبكة المحلية…"
         status.text = "بدأ البحث عن خدمات الريموت المعروفة. قد لا تظهر بعض الأجهزة إذا لم تعلن الخدمة."
         scanButton.isEnabled = false
-        val types = listOf("_androidtvremote2._tcp.", "_androidtvremote._tcp.")
+        // Discover common remote-control and casting announcements.
+        // Casting announcements mean discoverable only, not guaranteed control support.
+        val types = listOf(
+            "_androidtvremote2._tcp.",
+            "_androidtvremote._tcp.",
+            "_googlecast._tcp.",
+            "_airplay._tcp."
+        )
         types.forEach { type ->
             val listener = object : NsdManager.DiscoveryListener {
                 override fun onDiscoveryStarted(serviceType: String) {}

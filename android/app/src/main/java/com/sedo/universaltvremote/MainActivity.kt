@@ -23,7 +23,7 @@ class MainActivity : Activity() {
     private lateinit var devices: TextView
     private lateinit var scanButton: Button
     private val green = Color.rgb(166, 242, 105)
-    private val background = Color.rgb(16, 19, 28)
+    private val bgColor = Color.rgb(16, 19, 28)
     private val panel = Color.rgb(29, 34, 47)
     private val white = Color.rgb(244, 246, 250)
     private val muted = Color.rgb(165, 173, 190)
@@ -38,7 +38,7 @@ class MainActivity : Activity() {
         val root = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(22, 28, 22, 20)
-            setBackgroundColor(background)
+            setBackgroundColor(bgColor)
         }
         val scroll = ScrollView(this)
         val content = LinearLayout(this).apply {

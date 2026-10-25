@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#10131b">
+  <meta name="description" content="واجهة ريموت موحدة للتلفاز الذكي.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <title>ريموت — Universal TV Remote</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><div class="brand-icon">⌁</div><div><strong>ريموت</strong><small>UNIVERSAL TV REMOTE</small></div></div>
+    <button id="installBtn" class="install hidden" type="button">تثبيت التطبيق</button>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="eyebrow"><span class="pulse"></span> تحكم محلي • مشروع تجريبي</div>
+      <h1>كل التحكم،<br><span>في يدك.</span></h1>
+      <p>واجهة ريموت عربية للتلفاز الذكي. نبدأ بدعم Android TV وGoogle TV ثم نضيف المزيد.</p>
+      <div class="connection-card">
+        <div class="tv-icon">▣</div>
+        <div class="connection-copy"><strong id="deviceTitle">لم يتم الاتصال بتلفاز</strong><small id="deviceStatus">اتصل بشبكة Wi‑Fi نفسها التي يتصل بها التلفاز</small></div>
+        <span class="status-dot"></span>
+      </div>
+      <button id="scanBtn" class="primary full" type="button"><span>⌕</span> البحث عن أجهزة التلفاز</button>
+      <p class="hint">مهم: اكتشاف الأجهزة والتحكم الحقيقي يحتاجان إلى تطبيق Android بصلاحيات الشبكة المحلية. المتصفح وحده لا يستطيع البحث عن كل التلفازات.</p>
+    </section>
+
+    <section class="remote-section">
+      <div class="section-heading"><div><span class="eyebrow">REMOTE CONTROL</span><h2>جهاز التحكم</h2></div><span class="demo-tag">واجهة أولية</span></div>
+      <div class="remote">
+        <div class="remote-top">
+          <button class="round small" data-command="power" aria-label="تشغيل أو إطفاء">⏻</button>
+          <button class="round small" data-command="source" aria-label="المصدر">▣</button>
+          <button class="round small" data-command="mute" aria-label="كتم الصوت">⌁</button>
+        </div>
+        <div class="dpad">
+          <button class="nav up" data-command="up" aria-label="أعلى">⌃</button>
+          <button class="nav left" data-command="left" aria-label="يسار">‹</button>
+          <button class="ok" data-command="select">OK</button>
+          <button class="nav right" data-command="right" aria-label="يمين">›</button>
+          <button class="nav down" data-command="down" aria-label="أسفل">⌄</button>
+        </div>
+        <div class="remote-middle">
+          <button class="pill-btn" data-command="back">↩ رجوع</button>
+          <button class="pill-btn" data-command="home">⌂ الرئيسية</button>
+        </div>
+        <div class="volume-row">
+          <div class="control-stack"><span>الصوت</span><div><button data-command="volume-up">＋</button><b>VOL</b><button data-command="volume-down">−</button></div></div>
+          <div class="control-stack"><span>القنوات</span><div><button data-command="channel-up">＋</button><b>CH</b><button data-command="channel-down">−</button></div></div>
+        </div>
+        <button class="keyboard-btn" data-command="keyboard">⌨ إدخال نص من الهاتف</button>
+      </div>
+      <div class="notice"><span>ⓘ</span><p>الأزرار في هذه المرحلة تعرض تجربة الواجهة فقط؛ لن ترسل أوامر إلى التلفاز حتى نضيف الاتصال المحلي والاقتران في تطبيق Android.</p></div>
+    </section>
+
+    <section class="devices-section">
+      <div class="section-heading"><div><span class="eyebrow">YOUR DEVICES</span><h2>أجهزتي</h2></div><span class="count">0</span></div>
+      <div class="empty-state"><div class="empty-icon">⌁</div><strong>لا توجد أجهزة محفوظة</strong><p>بعد تفعيل اكتشاف Android TV ستظهر الأجهزة المتاحة هنا.</p></div>
+    </section>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <nav class="bottom-nav"><a class="active" href="#top" aria-label="الريموت">⌘<small>الريموت</small></a><a href="#devices" id="devicesLink">▣<small>الأجهزة</small></a><button id="helpBtn" type="button">ⓘ<small>مساعدة</small></button></nav>
+  <script src="./app.js"></script>
+</body>
+</html>
